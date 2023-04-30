@@ -1,0 +1,8 @@
+{
+    "target-price": 500,
+    "url": "https://www.unieuro.it/online/Console-Playstation-5/PlayStation-5-Digital-Edition-C-Chassis-pidSON9425793",
+    "smtp-server": "smtp.gmail.com",
+    "smtp-port": 465,
+    "sender": "foo.bar@gmail.com",
+    "password": "passwordgeneratedforthisspecificapp"
+}
