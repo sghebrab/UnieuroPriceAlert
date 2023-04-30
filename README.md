@@ -16,7 +16,7 @@ Then welcome to **Unieuro Price Alert**, a short, simple Python script that auto
 7. Copy the `conf.json.sample` file into a new file named `conf.json`;
 8. Populate the `conf.json` file with the correct values;
 9. Make `run.sh` executable (`chmod +x run.sh`) and edit it so that the first instruction is a `cd` to the working directory;
-10. Create a cron job that executes the run.sh script as frequently as you need (e.g. `*/15 * * * * /bin/bash /home/$USER/PythonProjects/UnieuroPriceAlert/run.sh > /dev/null 2>&1`
+10. Create a cron job that executes the run.sh script as frequently as you need (e.g. `*/5 * * * * env USER=$LOGNAME /bin/bash /home/$LOGNAME/Documents/PythonProjects/UnieuroPriceAlert/run.sh > /dev/null 2>&1`)
 
 ## Results
 
