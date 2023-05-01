@@ -4,6 +4,8 @@
 
 Tired of having to sistematically refresh Unieuro's products pages to know if the price for a specific product is acceptable for you?
 Then welcome to **Unieuro Price Alert**, a short, simple Python script that automatically alerts you when a product's price drops under a chosen threshold.
+With the latest modifications, you can track the price of more than one product at each run and be informed not only if the price goes under your specified threshold,
+but also if it hits an historical minimum, which could be also interesting for you.
 
 ## How to
 
