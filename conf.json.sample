@@ -1,8 +1,22 @@
 {
-    "target-price": 500,
-    "url": "https://www.unieuro.it/online/Console-Playstation-5/PlayStation-5-Digital-Edition-C-Chassis-pidSON9425793",
     "smtp-server": "smtp.gmail.com",
     "smtp-port": 465,
     "sender": "foo.bar@gmail.com",
-    "password": "passwordgeneratedforthisspecificapp"
+    "password": "applicationpassword",
+    "products": [
+        {
+            "url": "https://www.unieuro.it/online/Console-Playstation-5/PlayStation-5-Digital-Edition-C-Chassis-pidSON9425793",
+            "friendly-name": "PS5 Digital",
+            "target-price": 400,
+            "latest-price": 449,
+            "lowest-price": 449
+        },
+        {
+            "url": "https://www.unieuro.it/online/Giochi-Playstation-5/Resident-Evil-4-pidDEP1104627",
+            "friendly-name": "Resident Evil 4 PS5",
+            "target-price": 60,
+            "latest-price": 74.99,
+            "lowest-price": 74.99
+        }
+    ]
 }
