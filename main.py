@@ -23,14 +23,26 @@ def send_email(subject, body, sender, recipients, password):
     smtp_server.sendmail(sender, recipients, msg.as_string())
     smtp_server.quit()
 
+connections_log = open("connections.log", "a")
 # For each product to track in the JSON file
 for product in conf["products"]:
+    # Try loading the HTML page
+    try:
+        html_response = requests.get(product["url"])
+    # If anything goes wrong, log the error to the log file and skip the rest of the iteration
+    except requests.RequestException:
+        connections_log.write(str(datetime.now()) + " --> Error " + str(html_response.status_code) + " looking for " + product["friendly-name"] + "\n")
+        continue
     # Load the HTML page with a GET request
-    html_page = requests.get(product["url"]).text
+    html_page = html_response.text
     # Initialize the BeautifulSoup object
     soup = BeautifulSoup(html_page, "html.parser")
     # Find the right div that has the price in children spans
     div_price_right = soup.find("div", class_="pdp-right__price")
+    # If the HTML page does not contain the aforementioned div, skip the rest of the iteration as the price cannot be found
+    if div_price_right is None:
+        connections_log.write(str(datetime.now()) + " --> Unable to find price for " + product["friendly-name"] + "\n")
+        continue
     span_price_int = div_price_right.find("span", class_="integer")
     span_price_dec = div_price_right.find("span", class_="decimal")
     # Get the text from both spans to obtain the price in decimal form
@@ -38,9 +50,7 @@ for product in conf["products"]:
     price_dec = span_price_dec.get_text().replace(",", ".")
     price_final = float(price_int + price_dec)
     # Log current time and price for each product, just for information purposes
-    connections_log = open("connections.log", "a")
     connections_log.write(str(datetime.now()) + " --> " + product["friendly-name"] + " --> " + str(price_final) + "€\n")
-    connections_log.close()
     # If current price is lower than the threshold AND before this time it was not
     # (otherwise it would have already notified you), then send an e-mail
     if price_final <= product["target-price"] and product["latest-price"] > product["target-price"]:
@@ -68,6 +78,7 @@ for product in conf["products"]:
         product["lowest-price"] = price_final
     # Finally, replace the latest price with the newly measured one
     product["latest-price"] = price_final
+connections_log.close()
 # Dump the dictionary to the conf.json file
 conf_file = open("conf.json", "w")
 json.dump(conf, conf_file, indent=4)
