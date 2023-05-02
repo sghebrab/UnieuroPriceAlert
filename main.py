@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import sys
 import smtplib
 from email.mime.text import MIMEText
 from datetime import datetime
@@ -31,6 +30,7 @@ for product in conf["products"]:
         html_response = requests.get(product["url"])
     # If anything goes wrong, log the error to the log file and skip the rest of the iteration
     except requests.RequestException:
+        send_email("Connection Error", "Error while fetching the page of " + product["friendly-name"], conf["sender"], [conf["sender"]], conf["password"])
         connections_log.write(str(datetime.now()) + " --> Error " + str(html_response.status_code) + " looking for " + product["friendly-name"] + "\n")
         continue
     # Load the HTML page with a GET request
@@ -41,6 +41,7 @@ for product in conf["products"]:
     div_price_right = soup.find("div", class_="pdp-right__price")
     # If the HTML page does not contain the aforementioned div, skip the rest of the iteration as the price cannot be found
     if div_price_right is None:
+        send_email("Price error", "Unable to find the price in the HTML for product " + product["friendly-name"], conf["sender"], [conf["sender"]], conf["password"])
         connections_log.write(str(datetime.now()) + " --> Unable to find price for " + product["friendly-name"] + "\n")
         continue
     span_price_int = div_price_right.find("span", class_="integer")
