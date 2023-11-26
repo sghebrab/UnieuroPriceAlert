@@ -9,14 +9,16 @@
             "friendly-name": "PS5 Digital",
             "target-price": 400,
             "latest-price": 449,
-            "lowest-price": 449
+            "lowest-price": 449,
+            "availability": "off"
         },
         {
             "url": "https://www.unieuro.it/online/Giochi-Playstation-5/Resident-Evil-4-pidDEP1104627",
             "friendly-name": "Resident Evil 4 PS5",
             "target-price": 60,
             "latest-price": 74.99,
-            "lowest-price": 74.99
+            "lowest-price": 74.99,
+            "availability": "on"
         }
     ]
 }
