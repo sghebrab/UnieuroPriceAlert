@@ -31,11 +31,16 @@ connections_log = open("connections.log", "a")
 for product in conf["products"]:
     # Try loading the HTML page
     try:
-        html_response = requests.get(product["url"])
-    # If anything goes wrong, log the error to the log file and skip the rest of the iteration
+        html_response = requests.get(product["url"], timeout=2)
+    # If anything goes wrong with the same product for 3 times in a row, send an alert e-mail
     except requests.RequestException:
-        send_email("Connection Error", "Error while fetching the page of " + product["friendly-name"], conf["sender"], [conf["sender"]], conf["password"])
-        connections_log.write(str(datetime.now()) + " --> Error " + str(html_response.status_code) + " looking for " + product["friendly-name"] + "\n")
+        if "subsequent_errors" not in product:
+            product["subsequent_errors"] = 0
+        product["subsequent_errors"] += 1
+        if product["subsequent_errors"] == 3:
+            send_email("Connection Error", "Error while fetching the page of " + product["friendly-name"], conf["sender"], [conf["sender"]], conf["password"])
+            product["subsequent_errors"] = 0
+        connections_log.write(str(datetime.now()) + " --> Unexpected error looking for " + product["friendly-name"] + "\n")
         continue
     # Load the HTML page with a GET request
     html_page = html_response.text
