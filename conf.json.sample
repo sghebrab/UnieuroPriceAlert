@@ -10,7 +10,8 @@
             "target-price": 400,
             "latest-price": 449,
             "lowest-price": 449,
-            "availability": "off"
+            "availability": "off",
+            "subsequent_errors": 0
         },
         {
             "url": "https://www.unieuro.it/online/Giochi-Playstation-5/Resident-Evil-4-pidDEP1104627",
@@ -18,7 +19,8 @@
             "target-price": 60,
             "latest-price": 74.99,
             "lowest-price": 74.99,
-            "availability": "on"
+            "availability": "on",
+            "subsequent_errors": 0
         }
     ]
 }
