@@ -42,6 +42,8 @@ for product in conf["products"]:
             product["subsequent_errors"] = 0
         connections_log.write(str(datetime.now()) + " --> Unexpected error looking for " + product["friendly-name"] + "\n")
         continue
+    # Reset the counter for subsequent errors, since the page was correctly loaded
+    product["subsequent_errors"] = 0
     # Load the HTML page with a GET request
     html_page = html_response.text
     # Initialize the BeautifulSoup object
