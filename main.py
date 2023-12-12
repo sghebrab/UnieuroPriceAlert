@@ -81,7 +81,7 @@ for product in conf["products"]:
             product["lowest-price"] = price_final
     # If current price is not under threshold, but it is the lowest seen, notify the user to let him know
     # that current price is an historical minimum (maybe he's willing to pay that amount...)
-    elif price_final <= product["lowest-price"] and availability == "on":
+    elif price_final <= product["lowest-price"] and availability == "on" product["availability"] == "off":
         subject = "📉 All time low! 📉"
         body = "Current price for " + product["friendly-name"] + " --> " + str(price_final) + "€\n"
         body += "Previous historical minimum --> " + str(product["lowest-price"]) + "€\n"
