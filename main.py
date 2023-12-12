@@ -72,7 +72,7 @@ for product in conf["products"]:
     # If current price is lower than the threshold AND before this time it was not
     # (otherwise it would have already notified you), then send an e-mail
     if price_final <= product["target-price"] and product["latest-price"] > product["target-price"] and availability == "on":
-        subject = "Price under threshold!"
+        subject = "💸 Price under threshold! 💸"
         body = "Current price for " + product["friendly-name"] + " --> " + str(price_final) + "€\n"
         body += "Link --> " + product["url"]
         send_email(subject, body, sender, recipients, password)
@@ -81,8 +81,8 @@ for product in conf["products"]:
             product["lowest-price"] = price_final
     # If current price is not under threshold, but it is the lowest seen, notify the user to let him know
     # that current price is an historical minimum (maybe he's willing to pay that amount...)
-    elif price_final < product["lowest-price"] and availability == "on":
-        subject = "New historical minimum!"
+    elif price_final <= product["lowest-price"] and availability == "on":
+        subject = "📉 All time low! 📉"
         body = "Current price for " + product["friendly-name"] + " --> " + str(price_final) + "€\n"
         body += "Previous historical minimum --> " + str(product["lowest-price"]) + "€\n"
         body += "Link --> " + product["url"]
@@ -90,7 +90,7 @@ for product in conf["products"]:
         product["lowest-price"] = price_final
     # If the product was not available before and now is back in stock, send an email.
     elif product["availability"] == "off" and availability == "on":
-        subject = "Product back in stock!"
+        subject = "ℹ️  Product back in stock ℹ️"
         body = "Product " + product["friendly-name"] + " is back in stock.\n"
         body += "Current price --> " + str(price_final) + "€\n"
         body += "Link --> " + product["url"]
